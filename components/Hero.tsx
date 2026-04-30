@@ -1,33 +1,41 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useState } from "react";
+
+function formatDate(d: Date) {
+  return d.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+}
 
 export function Hero() {
+  const [date, setDate] = useState("");
+
+  useEffect(() => {
+    setDate(formatDate(new Date()));
+  }, []);
+
   return (
-    <header className="relative w-full min-h-[92vh] flex items-center justify-center overflow-hidden">
-      <div className="plate-frame absolute inset-0">
-        <Image
-          src="/archive/sign.png"
-          alt="The original Dorothy's Flower Shop sign"
-          fill
-          priority
-          sizes="100vw"
-          className="plate-img object-cover plate-vignette"
-        />
-      </div>
-      <div className="absolute inset-0 bg-cream/60" />
-      <div className="relative z-10 text-center px-6 rise-in">
-        <div className="caption mb-6">Est. — Kept by the family</div>
-        <h1 className="font-display font-medium text-ink text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight">
-          Dorothy&rsquo;s
-          <br />
-          <span className="italic font-normal">Flower Shop</span>
-        </h1>
-        <p className="font-display italic text-ink/80 text-xl md:text-2xl mt-8 max-w-xl mx-auto">
-          A family. A storefront. A way of doing things.
-        </p>
-        <div className="mt-12 flex justify-center">
-          <div className="hairline w-24" />
+    <header className="relative w-full h-screen overflow-hidden bg-ink">
+      <video
+        className="absolute inset-0 w-full h-full object-cover"
+        src="/video/intro.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+      />
+      <div className="absolute inset-x-0 top-8 md:top-10 z-10 flex flex-col items-center text-cream/95 [text-shadow:0_1px_8px_rgba(0,0,0,0.35)]">
+        <div className="text-[11px] md:text-sm tracking-[0.28em] uppercase font-medium">
+          Dorothy&rsquo;s Flower Shop
         </div>
-        <div className="mt-12 caption text-ink/60">scroll</div>
+        <div className="mt-2 text-[10px] md:text-xs tracking-[0.18em] uppercase text-cream/80">
+          Kept by the family{date ? ` | ${date}` : ""}
+        </div>
       </div>
     </header>
   );
