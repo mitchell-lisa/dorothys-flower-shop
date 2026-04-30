@@ -3,6 +3,7 @@ import { Prologue } from "@/components/Prologue";
 import { OurStory } from "@/components/OurStory";
 import { Represents } from "@/components/Represents";
 import { Archive } from "@/components/Archive";
+import { Garden } from "@/components/Garden";
 import { World } from "@/components/World";
 import { Letter } from "@/components/Letter";
 import { Footer } from "@/components/Footer";
@@ -22,6 +23,7 @@ export default function HomePage() {
       />
       <Represents />
       <Archive />
+      <Garden />
       <World />
       <Letter />
       <Footer />
