@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { SectionEyebrow, FloralRule } from "./SectionEyebrow";
+import { SectionEyebrow, HairlineRule } from "./SectionEyebrow";
 
 const pad = (n: number) => String(n).padStart(3, "0");
 const plant = (n: number) => {
@@ -95,7 +95,7 @@ export function Garden() {
         </div>
       </div>
 
-      <FloralRule />
+      <HairlineRule />
 
       {/* Movement II — Two flowering */}
       <div className="px-6">
@@ -127,7 +127,7 @@ export function Garden() {
         </div>
       </div>
 
-      <FloralRule />
+      <HairlineRule />
 
       {/* Movement III */}
       <div className="px-6">
@@ -158,7 +158,7 @@ export function Garden() {
         </div>
       </div>
 
-      <FloralRule />
+      <HairlineRule />
 
       {/* Movement IV */}
       <div className="px-6">

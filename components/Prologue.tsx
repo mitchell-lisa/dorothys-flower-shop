@@ -1,4 +1,4 @@
-import { FloralRule } from "./SectionEyebrow";
+import { HairlineRule } from "./SectionEyebrow";
 
 export function Prologue() {
   return (
@@ -18,7 +18,7 @@ export function Prologue() {
         <p className="font-display italic text-ink text-xl md:text-2xl mt-10">
           This is that place, kept.
         </p>
-        <FloralRule />
+        <HairlineRule />
       </div>
     </section>
   );

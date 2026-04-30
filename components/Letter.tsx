@@ -1,13 +1,10 @@
 "use client";
 
-import { MedallionMark } from "./MedallionMark";
-
 export function Letter() {
   return (
     <section id="letter" className="bg-linen/60 py-28 px-6">
       <div className="max-w-xl mx-auto text-center flex flex-col items-center">
-        <MedallionMark flower="rose" size="seal" />
-        <h2 className="font-display text-ink text-4xl md:text-5xl italic font-normal mt-10 leading-tight">
+        <h2 className="font-display text-ink text-4xl md:text-5xl italic font-normal leading-tight">
           Stay close to the shop.
         </h2>
         <p className="font-body text-ink/80 text-lg leading-[1.7] mt-6">
