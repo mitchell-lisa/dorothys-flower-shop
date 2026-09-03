@@ -6,8 +6,8 @@
  * Change a number here and it updates the product card, the product page, the
  * cart and the Stripe charge. Nothing else needs touching.
  *
- * Names for the five newest hats (Closing Time, Burlap, Mulch, Stem, Last
- * Frost) are working titles. Rename them here and they change everywhere.
+ * Names for the three newest hats (Closing Time, Wine, Evergreen) are working
+ * titles. Rename them here and they change everywhere.
  *
  * Anything set to null is a fact nobody has confirmed yet. A null field
  * renders nothing on the product page, which is honest. Fill it in when the
@@ -218,91 +218,47 @@ export const PRODUCTS: Product[] = [
     inStock: true,
   },
   {
-    slug: "burlap",
-    name: "Burlap",
+    slug: "wine",
+    name: "Wine",
     no: "No. 09",
-    price: 36,
+    price: 38,
     blank: null,
-    colour: "Washed tan / Green",
+    colour: "Washed burgundy / Gold, cream and green",
     fit: "Unstructured, low profile, curved bill",
     closure: null,
-    decoration: "Embroidery, front panel",
+    decoration: "Embroidery, front panel, four colours",
     material: null,
-    short: "Washed tan, the mark in dark green. The colour of the potting bench.",
+    short: "Washed burgundy, and the sign stitched out in full colour.",
     story:
-      "Named for the sacks bulbs come in. A soft, washed six-panel in the tan of dry burlap, with the mark stitched in dark green. It arrives looking worn in, which is the only way a flower shop hat should arrive.",
+      "The whole sign this time, thread for thread: gold letters with a cream keyline, the flowers in two greens, the phone number underneath. Stitched onto a washed burgundy six-panel the colour of a bucket of carnations at the end of a long Saturday.",
     details: [
-      "Unstructured six-panel. No buckram, no shape to lose.",
-      "Washed cotton, already broken in.",
-      "Dark green embroidery on tan.",
+      "Four-colour embroidery. The flowers are stitched, not printed.",
+      "Unstructured six-panel, washed cotton. No buckram, no shape to lose.",
+      "Curved bill, low profile. Sits close to the head.",
     ],
-    images: shot("burlap"),
+    images: shot("wine"),
     inStock: true,
   },
   {
-    slug: "mulch",
-    name: "Mulch",
+    slug: "evergreen",
+    name: "Evergreen",
     no: "No. 10",
-    price: 36,
+    price: 38,
     blank: null,
-    colour: "Washed brown / Sand",
+    colour: "Washed dark green / Gold and cream",
     fit: "Unstructured, low profile, curved bill",
     closure: null,
-    decoration: "Embroidery, front panel",
+    decoration: "Embroidery, front panel, two colours",
     material: null,
-    short: "Washed brown, the mark in sand. Quiet enough to wear every day.",
+    short: "Washed dark green, the sign in gold and cream. The shop colour.",
     story:
-      "Brown on brown, the way the beds looked in March before anything came up. The mark is stitched in sand so it sits in the fabric rather than on top of it. The one for people who do not want to explain their hat.",
+      "Dark green was the shop colour before it was anyone else's: the awning, the vans, the paper the stems went into. The sign is stitched in gold with the flowers in cream, which is how it looked in the window at four in the afternoon.",
     details: [
-      "Unstructured six-panel, washed cotton.",
-      "Sand embroidery on brown.",
-      "Low profile. Sits close to the head.",
-    ],
-    images: shot("mulch"),
-    inStock: true,
-  },
-  {
-    slug: "stem",
-    name: "Stem",
-    no: "No. 11",
-    price: 36,
-    blank: null,
-    colour: "Washed olive / Sand",
-    fit: "Unstructured, low profile, curved bill",
-    closure: null,
-    decoration: "Embroidery, front panel",
-    material: null,
-    short: "Washed olive, the mark in sand. The green that was under everything.",
-    story:
-      "Not the flower, the part that held it up. Olive washed down to the colour of a stem left in water a day too long, with the mark stitched in sand. It looks like it belonged to someone who worked there.",
-    details: [
-      "Unstructured six-panel, washed cotton.",
-      "Sand embroidery on olive.",
+      "Gold and cream embroidery on washed green.",
+      "Unstructured six-panel, washed cotton. Already broken in.",
       "Curved bill, low profile.",
     ],
-    images: shot("stem"),
-    inStock: true,
-  },
-  {
-    slug: "last-frost",
-    name: "Last Frost",
-    no: "No. 12",
-    price: 36,
-    blank: null,
-    colour: "Washed black / Rust",
-    fit: "Unstructured, low profile, curved bill",
-    closure: null,
-    decoration: "Embroidery, front panel",
-    material: null,
-    short: "Washed black, the mark in rust. The date the shop lived by.",
-    story:
-      "Every grower in South Jersey knows the date of the last frost, and nothing goes in the ground before it. Black washed to charcoal, with the mark stitched in rust, the colour of a clay pot left out over winter.",
-    details: [
-      "Unstructured six-panel, washed cotton.",
-      "Rust embroidery on washed black.",
-      "Curved bill, low profile.",
-    ],
-    images: shot("last-frost"),
+    images: shot("evergreen"),
     inStock: true,
   },
 ];
