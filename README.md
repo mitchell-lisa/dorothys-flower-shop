@@ -54,11 +54,13 @@ or swap the `fetch` in `app/api/subscribe/route.ts` for whatever list you use.
 
 ## Adding a hat
 
-1. Drop four images into `public/product/`, named for the slug:
-   - `<slug>-studio.webp` — square, on the seamless backdrop
-   - `<slug>-detail.webp` — 4:3 macro of the print
-   - `<slug>-editorial.webp` — 4:3, on the linen surface
-   - `<slug>-cutout.webp` — transparent PNG/WebP of the cap alone
+1. Drop two images into `public/product/`, named for the slug:
+   - `<slug>-front.webp` — straight on
+   - `<slug>-angle.webp` — three-quarter
+
+   Both are 1000x1250 on pure white, with the cap 680px wide, its left edge at
+   x=160 and its bottom at y=872. Every shot in the catalogue sits on that grid,
+   which is what makes the cards line up.
 2. Add an entry to `PRODUCTS` in `lib/products.ts`.
 
 The shop grid, the product page, the sitemap, the footer links and the structured data
