@@ -6,8 +6,8 @@
  * Change a number here and it updates the product card, the product page, the
  * cart and the Stripe charge. Nothing else needs touching.
  *
- * Names for the three newest hats (Closing Time, Wine, Evergreen) are working
- * titles. Rename them here and they change everywhere.
+ * Names for the four newest hats (Closing Time, Wine, Evergreen, Tobacco) are
+ * working titles. Rename them here and they change everywhere.
  *
  * Anything set to null is a fact nobody has confirmed yet. A null field
  * renders nothing on the product page, which is honest. Fill it in when the
@@ -259,6 +259,28 @@ export const PRODUCTS: Product[] = [
       "Curved bill, low profile.",
     ],
     images: shot("evergreen"),
+    inStock: true,
+  },
+  {
+    slug: "tobacco",
+    name: "Tobacco",
+    no: "No. 11",
+    price: 38,
+    blank: null,
+    colour: "Waxed brown / Cream",
+    fit: "Unstructured, low profile, flat curved bill",
+    closure: null,
+    decoration: "Embroidery, front panel, single colour",
+    material: null,
+    short: "Waxed brown canvas, the sign in cream. Sheds a light rain.",
+    story:
+      "The heaviest cloth of the three: a waxed brown canvas that darkens where it creases and goes lighter where it wears, the way a coat does. The sign is stitched in one cream thread, no keyline, so nothing competes with the fabric.",
+    details: [
+      "Waxed canvas. It marks, and the marks are the point.",
+      "Single-colour cream embroidery. No outline, no shadow.",
+      "Unstructured, low profile. The bill sits flatter than the others.",
+    ],
+    images: shot("tobacco"),
     inStock: true,
   },
 ];

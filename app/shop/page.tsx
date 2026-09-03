@@ -5,7 +5,7 @@ import { ProductCard } from "@/components/ProductCard";
 export const metadata: Metadata = {
   title: "Shop",
   description:
-    "Ten hats carrying the mark of Dorothy's Flower Shop: printed, patched and embroidered on trucker, twill and washed six-panel blanks.",
+    "Eleven hats carrying the mark of Dorothy's Flower Shop: printed, patched and embroidered on trucker, twill and washed six-panel blanks.",
 };
 
 export default function ShopPage() {
