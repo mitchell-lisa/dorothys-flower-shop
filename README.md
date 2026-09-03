@@ -1,57 +1,116 @@
 # Dorothy's Flower Shop
 
-A family. A storefront. A way of doing things.
+The shop's website and storefront. Next.js 16 (App Router) + Tailwind, deployed on Vercel.
 
-This repo holds the website for Dorothy's Flower Shop — part family story,
-part brand world, part visual moodboard.
+---
 
-## Stack
+## The two things you'll actually want to change
 
-- Next.js 14 (App Router) + React 18 + TypeScript
-- Tailwind CSS for the design tokens (cream, ink, shop-red, retro-green, sepia)
-- next/font (Cormorant Garamond + EB Garamond)
-- Static assets in `public/` — sign, family photo, newspaper ad, patches,
-  apparel ("Working Mans," "Water Your Flowers," the Marine hat), the intro
-  video, and Pop-Pop's gnocchi recipe
+### 1. Prices, stock, and copy — `lib/products.ts`
 
-## Develop
+Everything about the hats lives in one file. Each hat is one object:
 
-```bash
-npm install
-npm run dev
+```ts
+{
+  slug: "the-marine",       // the URL: /shop/the-marine
+  name: "The Marine",
+  price: 38,                // ← whole US dollars. PLACEHOLDER — set your real price.
+  inStock: true,            // ← false greys out the buy button and shows "Sold out"
+  ...
+}
 ```
 
-Then open http://localhost:3000.
+Change `price` and it updates the card, the product page, the cart, and the amount
+Stripe charges. There is no second place to keep in sync.
+
+Flat shipping and the free-shipping threshold are at the bottom of the same file:
+
+```ts
+export const SHIPPING_FLAT = 6;
+export const FREE_SHIPPING_OVER = 100;
+```
+
+### 2. Turning on real checkout — one environment variable
+
+Checkout is wired to Stripe Checkout and is **off** until you give it a key. Right now
+the button returns a polite "not switched on yet" message.
+
+To switch it on:
+
+1. In Stripe, copy your secret key (`sk_live_…`, or `sk_test_…` to trial it).
+2. Vercel → the project → **Settings → Environment Variables**.
+3. Add `STRIPE_SECRET_KEY` with that value, for Production (and Preview if you like).
+4. Redeploy.
+
+That's it. Line items are built from `lib/products.ts` at request time, so you never
+have to create products inside Stripe or keep two catalogues matching. Shipping and
+US/Canada address collection are already configured in `app/api/checkout/route.ts`.
+
+**Optional — the mailing list.** The signup form validates and thanks people out of the
+box but doesn't store anything. Set `BUTTONDOWN_API_KEY` to have it write to Buttondown,
+or swap the `fetch` in `app/api/subscribe/route.ts` for whatever list you use.
+
+---
+
+## Adding a hat
+
+1. Drop four images into `public/product/`, named for the slug:
+   - `<slug>-studio.webp` — square, on the seamless backdrop
+   - `<slug>-detail.webp` — 4:3 macro of the print
+   - `<slug>-editorial.webp` — 4:3, on the linen surface
+   - `<slug>-cutout.webp` — transparent PNG/WebP of the cap alone
+2. Add an entry to `PRODUCTS` in `lib/products.ts`.
+
+The shop grid, the product page, the sitemap, the footer links and the structured data
+all read from that array, so nothing else needs editing.
+
+---
 
 ## Structure
 
 ```
 app/
-  layout.tsx        ← global fonts + cream bg
-  page.tsx          ← homepage (sections composed here)
-  globals.css       ← halftone treatment + type rhythm
-components/
-  Hero.tsx
-  Prologue.tsx
-  OurStory.tsx
-  Represents.tsx    ← five medallions = five values
-  Archive.tsx
-  World.tsx         ← apparel + objects
-  Letter.tsx        ← newsletter signup
-  Footer.tsx
-  Plate.tsx         ← reusable halftone plate (landscape + medallion)
-  PlateBand.tsx     ← full-bleed section divider
-  MedallionMark.tsx ← SVG flower placeholders for the value cameos
-  SectionEyebrow.tsx
-public/
-  archive/          ← sign, newspaper ad, drive-through, patches, photos
-  world/            ← apparel and hat assets
-  video/            ← intro.mp4
-  logo/             ← logo files
+  page.tsx              home
+  shop/page.tsx         the grid
+  shop/[slug]/page.tsx  product page (statically generated per hat)
+  about/page.tsx        the story
+  archive/page.tsx      the plates + the garden
+  shipping/page.tsx     shipping, returns, sizing, care
+  success/page.tsx      post-checkout
+  api/checkout/         Stripe Checkout session
+  api/subscribe/        mailing list
+components/             header, footer, cart, gallery, cards
+lib/products.ts         ← the catalogue
+public/product/         hat photography
+public/archive/         the sign, the card, the patches, family photographs
+public/garden/          the botanical plates
 ```
 
-## Deploy
+## Running it
 
-This deploys to Vercel automatically when connected to the GitHub repo —
-push to `main` deploys to production; push to a feature branch creates a
-preview URL. No `vercel.json` needed; Next.js is auto-detected.
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build
+npm run lint     # tsc --noEmit
+```
+
+---
+
+## Notes on the images
+
+The product photography was built from the flat design mockups: the artwork is warped
+onto the crown's curvature, given the cap's own lighting, ink relief at the edges and
+fabric grain showing through, then composited into a lit scene with a real contact
+shadow. They are good enough to sell from. When the physical samples arrive, real
+photographs shot to the same framing will drop straight into `public/product/` with no
+code changes.
+
+## Things left open
+
+- **Prices are placeholders** ($38–$42). Set your own in `lib/products.ts`.
+- **`RI`** — the name is carried over from the original artwork file. The copy
+  deliberately doesn't claim what the initials stand for; say the word and it gets
+  rewritten or renamed.
+- Stripe is configured for US and Canada shipping addresses only. Widen the
+  `allowed_countries` list in `app/api/checkout/route.ts` if you need more.

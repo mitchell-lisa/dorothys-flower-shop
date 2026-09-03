@@ -3,85 +3,181 @@
 @tailwind utilities;
 
 :root {
-  --cream: #F4ECDD;
-  --linen: #EADFC8;
-  --ink: #2B1D14;
-  --halftone: #7A6F60;
+  --paper: #ffffff;
+  --bone: #f4f4f2;
+  --ink: #111111;
+  --mute: #767676;
+  --line: #e3e3e0;
+  --header: 52px;
 }
 
-html, body {
-  background: var(--cream);
-  color: var(--ink);
-  -webkit-font-smoothing: antialiased;
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  background: var(--paper);
 }
 
 body {
-  background-image:
-    radial-gradient(rgba(43, 29, 20, 0.04) 1px, transparent 1px);
-  background-size: 3px 3px;
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 ::selection {
-  background: rgba(168, 51, 30, 0.18);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* ------------------------------------------------------------------ type
+   One family, three jobs. Nearly all interface text is the small uppercase
+   label. Headlines barely exist, because the photography carries hierarchy. */
+
+.label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.label-sm {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+/* The only type allowed to get large. Tight, never decorative. */
+.statement {
+  font-size: clamp(1.75rem, 3.4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+}
+
+.prose-quiet p {
+  margin-top: 1.1em;
+  max-width: 34rem;
+}
+.prose-quiet p:first-child {
+  margin-top: 0;
+}
+
+/* ------------------------------------------------------------- controls */
+
+.btn {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1.05rem 1.6rem;
+  border: 1px solid var(--ink);
+  transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+.btn-solid {
+  background: var(--ink);
+  color: var(--paper);
+}
+.btn-solid:hover {
+  background: #333;
+}
+.btn-ghost {
   color: var(--ink);
+  background: transparent;
+}
+.btn-ghost:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
-/* Plate / halftone treatment */
-.plate-img {
-  filter: grayscale(1) sepia(0.18) contrast(0.92) brightness(1.04);
+/* Underline that draws on hover, the only flourish that survives. */
+.link-quiet {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  padding-bottom: 1px;
+}
+.link-quiet:hover {
+  background-size: 100% 1px;
+}
+.link-on {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  padding-bottom: 1px;
 }
 
-.plate-frame {
+/* ------------------------------------------------------------ structure */
+
+.bleed {
+  width: 100%;
+}
+
+.gutter {
+  padding-left: 14px;
+  padding-right: 14px;
+}
+@media (min-width: 768px) {
+  .gutter {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+/* Image wells sit on bone so a transparent or light shot never floats. */
+.well {
+  background: var(--bone);
+  overflow: hidden;
   position: relative;
-  isolation: isolate;
 }
 
-.plate-frame::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4'><circle cx='1' cy='1' r='0.7' fill='%232B1D14'/></svg>");
-  background-size: 3px 3px;
-  mix-blend-mode: multiply;
-  opacity: 0.18;
+/* --------------------------------------------------------------- motion
+   Fades only. No rise, no scale-in. Movement reads as retail, not editorial. */
+
+.reveal {
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+.reveal.in {
+  opacity: 1;
 }
 
-.plate-frame.medallion::after {
-  border-radius: 9999px;
-}
+/* The opener cross-fades; under reduced-motion it cuts instead, and the
+   global transition-duration override below already flattens the fades. */
 
-.plate-vignette {
-  box-shadow: inset 0 0 60px 10px rgba(43, 29, 20, 0.18);
+.no-bar {
+  scrollbar-width: none;
 }
-
-/* Type rhythm */
-.eyebrow {
-  font-family: var(--font-body), Georgia, serif;
-  font-size: 0.72rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--halftone);
-}
-
-.caption {
-  font-family: var(--font-body), Georgia, serif;
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--halftone);
-}
-
-.hairline {
-  height: 1px;
-  background: rgba(43, 29, 20, 0.25);
-}
-
-/* Rises in slightly on scroll */
-@keyframes rise-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.rise-in {
-  animation: rise-in 1.2s ease forwards;
+.no-bar::-webkit-scrollbar {
+  display: none;
 }

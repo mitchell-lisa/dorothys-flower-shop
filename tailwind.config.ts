@@ -1,28 +1,31 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
+  content: [
+    "./app/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./lib/**/*.{ts,tsx}",
+  ],
   theme: {
     extend: {
       colors: {
-        cream: "#F4ECDD",
-        linen: "#EADFC8",
-        ink: "#2B1D14",
-        "shop-red": "#A8331E",
-        "retro-green": "#3E5641",
-        sepia: "#8A6A4A",
-        petal: "#C98A8A",
-        halftone: "#7A6F60",
+        /* Neutral ground so photography supplies every bit of colour. */
+        paper: "#FFFFFF",
+        bone: "#F4F4F2", // image wells, section bands
+        ink: "#111111",
+        mute: "#767676", // 4.54:1 on paper — AA for body text
+        line: "#E3E3E0",
       },
       fontFamily: {
-        display: ["var(--font-display)", "Georgia", "serif"],
-        body: ["var(--font-body)", "Georgia", "serif"],
+        sans: ["var(--font-sans)", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
       },
       letterSpacing: {
-        caps: "0.18em",
+        label: ".14em",
+        wide: ".08em",
       },
-      maxWidth: {
-        prose: "44rem",
+      maxWidth: { shell: "1600px", text: "34rem" },
+      transitionTimingFunction: {
+        out: "cubic-bezier(.22,.61,.36,1)",
       },
     },
   },
