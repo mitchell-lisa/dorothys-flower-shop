@@ -8,7 +8,12 @@ import { useCart } from "./CartProvider";
 /* One door now: a Menu button top-left that slides a sidebar out. The two
    groups survive inside it: product on one side of the fold, the brand's
    world on the other, at equal weight. */
-const SHOP = [{ href: "/shop", label: "Hats" }];
+const SHOP = [
+  { href: "/shop", label: "All" },
+  { href: "/shop?cat=hats", label: "Hats" },
+  { href: "/shop?cat=apparel", label: "Apparel" },
+  { href: "/shop?cat=bags", label: "Bags" },
+];
 
 const EXPLORE = [
   { href: "/about", label: "The story" },
@@ -131,6 +136,7 @@ export function Header() {
                       href={n.href}
                       tabIndex={menu ? 0 : -1}
                       className="label link-quiet"
+                      onClick={() => setMenu(false)}
                     >
                       {n.label}
                     </Link>

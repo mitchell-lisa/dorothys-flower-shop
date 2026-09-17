@@ -71,7 +71,7 @@ export function CartDrawer() {
           <div className="flex flex-1 flex-col items-center justify-center gap-5 px-8 text-center">
             <p className="label text-mute">Nothing in here yet</p>
             <Link href="/shop" onClick={() => setOpen(false)} className="btn btn-ghost">
-              See the hats
+              See the shop
             </Link>
           </div>
         ) : (

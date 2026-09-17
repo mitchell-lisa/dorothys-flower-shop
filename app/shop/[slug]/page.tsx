@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { PRODUCTS, bySlug, money } from "@/lib/products";
+import { PRODUCTS, bySlug, categoryOf, money, schemaAvailability } from "@/lib/products";
 import { Gallery } from "@/components/Gallery";
 import { ProductBuy } from "@/components/ProductBuy";
 import { ProductCard } from "@/components/ProductCard";
@@ -32,7 +32,10 @@ export default async function ProductPage({ params }: Params) {
   const p = bySlug((await params).slug);
   if (!p) notFound();
 
-  const others = PRODUCTS.filter((x) => x.slug !== p.slug).slice(0, 4);
+  const others = [
+    ...PRODUCTS.filter((x) => x.slug !== p.slug && categoryOf(x) === categoryOf(p)),
+    ...PRODUCTS.filter((x) => x.slug !== p.slug && categoryOf(x) !== categoryOf(p)),
+  ].slice(0, 4);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -48,9 +51,7 @@ export default async function ProductPage({ params }: Params) {
       url: `${SITE}/shop/${p.slug}`,
       price: p.price,
       priceCurrency: "USD",
-      availability: p.inStock
-        ? "https://schema.org/InStock"
-        : "https://schema.org/OutOfStock",
+      availability: schemaAvailability(p),
     },
   };
 
@@ -116,7 +117,7 @@ export default async function ProductPage({ params }: Params) {
         <div className="flex items-baseline justify-between border-b border-line pb-3">
           <h2 className="label">More</h2>
           <Link href="/shop" className="label link-quiet text-mute hover:text-ink">
-            All hats
+            The shop
           </Link>
         </div>
         <ul className="mt-3 grid grid-cols-2 gap-x-3 gap-y-10 pb-24 lg:grid-cols-4">

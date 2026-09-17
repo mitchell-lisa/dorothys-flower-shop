@@ -47,6 +47,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [lines, ready]);
 
   const add = useCallback((slug: string, qty = 1) => {
+    const product = PRODUCTS.find((p) => p.slug === slug);
+    if (!product?.inStock) return;
     setLines((ls) => {
       const hit = ls.find((l) => l.slug === slug);
       if (hit) return ls.map((l) => (l.slug === slug ? { ...l, qty: Math.min(10, l.qty + qty) } : l));

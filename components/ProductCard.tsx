@@ -2,11 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { money, type Product } from "@/lib/products";
+import { money, unavailableLabel, type Product } from "@/lib/products";
 
 /* Image, name, price. Nothing else: no number, no description sentence, no
    add-to-cart. The grid is a wall of pictures; buying happens on the page.
-   Rest shows the front, hover turns the hat three-quarters. */
+   Rest shows the front, hover turns the piece three-quarters. */
 export function ProductCard({
   product,
   priority = false,
@@ -16,6 +16,8 @@ export function ProductCard({
   priority?: boolean;
   sizes?: string;
 }) {
+  const badge = unavailableLabel(product);
+
   return (
     <article className="group">
       <Link href={`/shop/${product.slug}`} className="block">
@@ -35,9 +37,9 @@ export function ProductCard({
             sizes={sizes}
             className="object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           />
-          {!product.inStock && (
+          {badge && (
             <span className="absolute left-3 top-3 bg-paper px-2 py-1 label-sm text-mute">
-              Sold out
+              {badge}
             </span>
           )}
         </div>

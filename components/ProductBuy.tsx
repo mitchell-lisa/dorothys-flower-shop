@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { money, type Product } from "@/lib/products";
+import { buyLabel, fitNote, type Product } from "@/lib/products";
 import { useCart } from "./CartProvider";
 
 export function ProductBuy({ product }: { product: Product }) {
@@ -36,12 +36,12 @@ export function ProductBuy({ product }: { product: Product }) {
           disabled={!product.inStock}
           className="btn btn-solid flex-1"
         >
-          {product.inStock ? "Add to cart" : "Sold out"}
+          {buyLabel(product)}
         </button>
       </div>
 
       <p className="mt-3 label-sm text-mute">
-        One size, adjustable · Free shipping over $100
+        {fitNote(product)}
       </p>
     </div>
   );

@@ -10,7 +10,16 @@ export function Footer() {
             <h2 className="label-sm text-mute">Shop</h2>
             <ul className="mt-3 space-y-1.5">
               <li>
-                <Link href="/shop" className="link-quiet">Hats</Link>
+                <Link href="/shop" className="link-quiet">All</Link>
+              </li>
+              <li>
+                <Link href="/shop?cat=hats" className="link-quiet">Hats</Link>
+              </li>
+              <li>
+                <Link href="/shop?cat=apparel" className="link-quiet">Apparel</Link>
+              </li>
+              <li>
+                <Link href="/shop?cat=bags" className="link-quiet">Bags</Link>
               </li>
             </ul>
           </nav>

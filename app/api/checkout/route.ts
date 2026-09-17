@@ -30,6 +30,13 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Your cart is empty." }, { status: 400 });
   }
 
+  if (items.some((i) => !i.product.inStock)) {
+    return NextResponse.json(
+      { error: "One of those isn't for sale yet." },
+      { status: 400 },
+    );
+  }
+
   if (!key) {
     return NextResponse.json(
       {

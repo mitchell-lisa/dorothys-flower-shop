@@ -18,8 +18,9 @@ const BLOCKS: [string, string[]][] = [
     "Write to us first so we know it's coming. Return postage is on you unless we sent the wrong thing, in which case it isn't.",
   ]],
   ["Sizing", [
-    "Every hat here is one size and adjustable, and fits most adult heads without argument.",
-    "The Marine and RI sit high with a flat bill. Working Mans, Water Your Flowers, Drive Through, Camo and Retro Green sit lower with a pre-curved or slightly curved visor.",
+    "Hats are one size and adjustable, and fit most adult heads without argument.",
+    "The Marine and RI sit high with a flat bill. Working Mans, Water Your Flowers, Drive Through, Thornhill and Retro Green sit lower with a pre-curved or slightly curved visor.",
+    "Apparel is sized. The Shop Tee and Gardener Crew run relaxed; size for the fit you want. The Shop Tote is one size.",
   ]],
   ["Care", [
     "Spot clean with cool water and a soft brush. Air dry, right side up, away from a radiator.",
@@ -59,7 +60,7 @@ export default function ShippingPage() {
 
       <p className="gutter max-w-text py-20 text-mute">
         Anything else, call the number on the sign &mdash; or just{" "}
-        <Link href="/shop" className="link-on">go look at the hats</Link>.
+        <Link href="/shop" className="link-on">go look at the shop</Link>.
       </p>
     </div>
   );

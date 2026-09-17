@@ -13,9 +13,15 @@
  * renders nothing on the product page, which is honest. Fill it in when the
  * blank, material or closure is known for that hat.
  *
- * `inStock: false` shows the hat but disables the buy button. Use it for the
- * ones still waiting on samples.
+ * `inStock: false` shows the piece but disables the buy button. Use it for the
+ * ones still waiting on samples. Optional `availability` chooses the badge:
+ * `coming_soon` reads Coming soon; omit it or use `sold_out` for Sold out.
+ *
+ * Optional `category` groups the shop. Hats without one are treated as hats.
  */
+
+export type ProductCategory = "hats" | "apparel" | "bags";
+export type ProductAvailability = "coming_soon" | "sold_out";
 
 export type Product = {
   slug: string;
@@ -33,6 +39,39 @@ export type Product = {
   details: string[];
   images: { front: string; angle: string };
   inStock: boolean;
+  category?: ProductCategory;
+  availability?: ProductAvailability;
+};
+
+export const CATEGORIES: { id: ProductCategory; label: string }[] = [
+  { id: "hats", label: "Hats" },
+  { id: "apparel", label: "Apparel" },
+  { id: "bags", label: "Bags" },
+];
+
+export const categoryOf = (p: Product): ProductCategory => p.category ?? "hats";
+
+export const unavailableLabel = (p: Product): "Coming soon" | "Sold out" | null => {
+  if (p.inStock) return null;
+  return p.availability === "coming_soon" ? "Coming soon" : "Sold out";
+};
+
+export const buyLabel = (p: Product) => {
+  if (p.inStock) return "Add to cart";
+  return p.availability === "coming_soon" ? "Coming soon" : "Sold out";
+};
+
+export const fitNote = (p: Product) => {
+  const cat = categoryOf(p);
+  if (cat === "apparel") return "Sized. See fit notes · Free shipping over $100";
+  if (cat === "bags") return "One size · Free shipping over $100";
+  return "One size, adjustable · Free shipping over $100";
+};
+
+export const schemaAvailability = (p: Product) => {
+  if (p.inStock) return "https://schema.org/InStock";
+  if (p.availability === "coming_soon") return "https://schema.org/PreOrder";
+  return "https://schema.org/OutOfStock";
 };
 
 const shot = (slug: string) => ({
@@ -282,6 +321,78 @@ export const PRODUCTS: Product[] = [
     ],
     images: shot("tobacco"),
     inStock: true,
+  },
+  {
+    slug: "the-shop-tee",
+    name: "The Shop Tee",
+    no: "No. 12",
+    price: 38,
+    blank: "Comfort Colors 1717, heavyweight ring-spun garment-dyed tee",
+    colour: "Ivory",
+    fit: "Relaxed, boxy",
+    closure: null,
+    decoration: "Screen print, left chest wordmark",
+    material: "6.1 oz, 100% ring-spun cotton, garment-dyed",
+    short: "Made for mornings at the shop.",
+    story:
+      "Heavyweight ivory, garment-dyed soft, with the shop name small on the chest. The everyday piece: for the floor, the sidewalk, and everything after.",
+    details: [
+      "Comfort Colors 1717 blank.",
+      "Left-chest Dorothy's Flower Shop wordmark in forest green.",
+      "Runs relaxed.",
+    ],
+    images: shot("the-shop-tee"),
+    inStock: false,
+    category: "apparel",
+    availability: "coming_soon",
+  },
+  {
+    slug: "the-gardener-crew",
+    name: "The Gardener Crew",
+    no: "No. 13",
+    price: 78,
+    blank: "Comfort Colors 1566, ring-spun crewneck sweatshirt",
+    colour: "Olive",
+    fit: "Relaxed",
+    closure: null,
+    decoration: "Front chest embroidery: DOROTHY'S / FLOWERS / 881-6905 with floral sprigs",
+    material: "9.5 oz ring-spun cotton/poly fleece, garment-dyed",
+    short: "Shop uniform. Same mark as the hats.",
+    story:
+      "Olive fleece carrying the same local mark as the hat line: Dorothy's, Flowers, the old phone number, and the sprigs. Built for cooler mornings and the walk to the van.",
+    details: [
+      "Comfort Colors 1566 crew.",
+      "Front mark matches the hat language.",
+      "Layer over the Shop Tee.",
+    ],
+    images: shot("the-gardener-crew"),
+    inStock: false,
+    category: "apparel",
+    availability: "coming_soon",
+  },
+  {
+    slug: "the-shop-tote",
+    name: "The Shop Tote",
+    no: "No. 14",
+    price: 28,
+    blank: "Port Authority BG428, cotton canvas shopper",
+    colour: "Natural",
+    fit: "One size",
+    closure: null,
+    decoration: "Screen print: DOROTHY'S / FLOWERS / 881-6905 with floral sprigs",
+    material: "12 oz 100% cotton canvas",
+    short: "Packed from Glassboro.",
+    story:
+      "Natural canvas with the same shop mark as the hats. For stems, errands, and deliveries.",
+    details: [
+      "Port Authority BG428.",
+      "Same local mark language as the hat line.",
+      "Gift and utility.",
+    ],
+    images: shot("the-shop-tote"),
+    inStock: false,
+    category: "bags",
+    availability: "coming_soon",
   },
 ];
 
